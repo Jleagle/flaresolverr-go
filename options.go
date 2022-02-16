@@ -3,6 +3,7 @@ package flaresolverr
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"time"
 
 	"golang.org/x/time/rate"
@@ -24,6 +25,11 @@ func WithPort(port int) Option {
 			c.port = port
 		}
 	}
+}
+
+func WithPortString(port string) Option {
+	p, _ := strconv.Atoi(port)
+	return WithPort(p)
 }
 
 func WithHostName(hostname string) Option {

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 
 	"golang.org/x/time/rate"
 )
@@ -32,6 +33,14 @@ func NewClient(opts ...Option) *Client {
 	c.hostname = "localhost"
 	c.proto = "http"
 	c.port = 8191
+
+	envs := []Option{
+		WithProtocol(os.Getenv("FSG_PROTO")),
+		WithHostName(os.Getenv("FSG_HOST")),
+		WithPortString(os.Getenv("FSG_PORT")),
+	}
+
+	opts = append(envs, opts...)
 
 	for _, opt := range opts {
 		opt(c)
