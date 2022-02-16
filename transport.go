@@ -6,14 +6,14 @@ import (
 	"strings"
 )
 
-func NewTransport(client Client) *roundTripper {
+func NewTransport(client *Client) *roundTripper {
 	return &roundTripper{
 		client: client,
 	}
 }
 
 type roundTripper struct {
-	client Client
+	client *Client
 }
 
 func (r roundTripper) RoundTrip(request *http.Request) (resp *http.Response, err error) {
